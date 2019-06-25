@@ -1,0 +1,13 @@
+{
+  "title": "The file name must be the same as the first top-level class name",
+  "type": "CODE_SMELL",
+  "status": "ready",
+  "remediation": {
+    "func": "Constant\/Issue",
+    "constantCost": "2min"
+  },
+  "tags": [
+    "pitfall"
+  ],
+  "defaultSeverity": "Minor"
+}

@@ -1,0 +1,51 @@
+<p>This rule detects file name and class name declaration</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+/* The file name should contain the first top-level class with the same name as it */
+Class1.java // Noncompliant
+
+public class NotClass1 { // Noncompliant
+    class InnerNotClass1 {
+
+    }
+}
+
+public class Class1 {
+    class InnerClass1 {
+
+    }
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+Class1.java // Compliant
+
+public class Class1 { // Compliant
+    class InnerClass1 {
+
+    }
+}
+
+public class NotClass1 { 
+    class InnerNotClass1 {
+
+    }
+}
+
+or 
+
+NotClass1.java // Compliant
+
+public class NotClass1 { // Compliant
+    class InnerNotClass1 {
+
+    }
+}
+
+public class Class1 {
+    class InnerClass1 {
+
+    }
+}
+
+</pre>

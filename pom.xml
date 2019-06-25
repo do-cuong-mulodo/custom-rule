@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.sonarsource.samples</groupId>
+	<artifactId>custom-rule</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>sonar-plugin</packaging>
+
+	<!-- need for building plugin with mvn clean install -->
+	<name>mulodo-sonar-custom-rule</name>
+	<description>Mulodo Java Custom Rules for SonarQube</description>
+	<inceptionYear>2019</inceptionYear>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sonar.version>7.7</sonar.version>
+		<sonarjava.version>5.12.1.17771</sonarjava.version>
+		<gson.version>2.6.2</gson.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+				<artifactId>sonar-packaging-maven-plugin</artifactId>
+				<version>1.17</version>
+				<extensions>true</extensions>
+				<configuration>
+					<pluginKey>mulodo-sonar-custom-rule</pluginKey>
+					<pluginName>Mulodo Java Custom Rules for SonarQube</pluginName>
+					<pluginClass>com.mulodo.sonar.plugin.custom_rule.JavaRulesPlugin</pluginClass>
+					<sonarLintSupported>true</sonarLintSupported>
+					<sonarQubeMinVersion>6.7</sonarQubeMinVersion>
+				</configuration>
+			</plugin>
+
+			<!-- jre 1.8 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- junit for unit testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- need for building plugin with mvn clean install -->
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-plugin-api</artifactId>
+			<version>${sonar.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.java/sonar-java-plugin -->
+		<!-- including org.sonar.check.Rule org.sonar.plugins.java.api.IssuableSubscriptionVisitor 
+			org.sonar.plugins.java.api.tree.Tree.Kind -->
+		<dependency>
+			<groupId>org.sonarsource.java</groupId>
+			<artifactId>sonar-java-plugin</artifactId>
+			<type>sonar-plugin</type>
+			<version>${sonarjava.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<!-- including com.google.common.collect.ImmutableList -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.java/java-checks-testkit -->
+		<!-- including org.sonar.java.checks.verifier.JavaCheckVerifier -->
+		<dependency>
+			<groupId>org.sonarsource.java</groupId>
+			<artifactId>java-checks-testkit</artifactId>
+			<version>${sonarjava.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sslr-squid-bridge/sslr-squid-bridge -->
+		<!-- including org.sonar.squidbridge.annotations.RuleTemplate -->
+		<dependency>
+			<groupId>org.sonarsource.sslr-squid-bridge</groupId>
+			<artifactId>sslr-squid-bridge</artifactId>
+			<version>2.6.1</version>
+			<!-- resolve context.addExtension (org.sonar.api.Plugin) -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.sonar.sslr</groupId>
+					<artifactId>sslr-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.sonar</groupId>
+					<artifactId>sonar-plugin-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.codehaus.sonar.sslr</groupId>
+					<artifactId>sslr-xpath</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>jcl-over-slf4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- without it, after built and copy to sonar plugin folder, web crash -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+		</dependency>
+
+		<!-- without it, after built and copy to sonar plugin folder, web crash -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+        <!-- Logger -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.3</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
