@@ -1,4 +1,4 @@
-#Sonar Custom Rule
+# Sonar Custom Rule
 
 ### Test the plugin:
  - We can build the plugin with maven 
@@ -6,6 +6,7 @@
 
  - After built successfully, copy and place it into `sonar-path`/extensions/plugins. @Note you need to install SonarQube or use docker; In case of using docker, you can use the command to copy the plugin into docker container where sonar plugin folder locates
     + `docker cp custom-rule-1.0-SNAPSHOT.jar [container_id]:/opt/sonarqube/extensions/plugins/custom-rule-1.0-SNAPSHOT.jar`
+    
     **Example:** 
     + `docker cp custom-rule-1.0-SNAPSHOT.jar 3d76d14d0de6:/opt/sonarqube/extensions/plugins/custom-rule-1.0-SNAPSHOT.jar`
 
@@ -24,5 +25,5 @@
  - Eventually, if everything is ok, we will see your plugin works properly.
 
 
-#References:
+### References:
 - https://github.com/mulodo-vietnam/vcs-inspection/wiki/sonar-custom-rule-wiki
